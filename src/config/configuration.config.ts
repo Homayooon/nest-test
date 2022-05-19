@@ -9,4 +9,9 @@ export default () => ({
         port: process.env.MYSQL_TYPEORM_PORT || 3306,
         synchronize: (process.env.MYSQL_TYPEORM_SYNCHRONIZE === 'true') || false,  // true → Development | false → Production
     },
+    jwt: {
+        secret: 'this_should_be_a_strong_value',
+        ignoreExpiration: 'NO',
+        expiresIn: '10 days'
+    },
 });

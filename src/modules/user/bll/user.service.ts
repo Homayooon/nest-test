@@ -24,10 +24,10 @@ export class UserService {
                 },
                 relations: ['roles', 'roles.role']
             })
-            const roles = user.roles.map((role) => {
+            const roles = user.roles.map((r) => {
                 return {
-                    id: role.role.id,
-                    role: role.role.name
+                    id: r.role.id,
+                    role: r.role.name
                 }
             })
             const result = {
@@ -51,10 +51,10 @@ export class UserService {
                 relations: ['roles', 'roles.role']
             })
             const result = users.map((user) => {
-                const roles = user.roles.map((role) => {
+                const roles = user.roles.map((r) => {
                     return {
-                        id: role.role.id,
-                        role: role.role.name
+                        id: r.role.id,
+                        role: r.role.name
                     }
                 })
                 return {
@@ -67,6 +67,27 @@ export class UserService {
                 state: 0,
                 msg: 'users info',
                 data: result
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getRoles(userId): Promise<BllResult>{
+        try {
+            const user = await this.userRepo.findOne({
+                where: {
+                    id: userId
+                },
+                relations: ['roles', 'roles.role']
+            })
+            const roles = user.roles.map((r) => {
+                return r.role.name
+            })
+            return {
+                state: 0,
+                msg: 'user roles info',
+                data: roles
             }
         } catch (error) {
             throw error
