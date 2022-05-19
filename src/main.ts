@@ -1,6 +1,7 @@
 import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
 import {ConfigService} from '@nestjs/config';
+import {BadRequestException, ValidationPipe} from "@nestjs/common"
 
 async function bootstrap() {
 
@@ -24,6 +25,14 @@ async function bootstrap() {
         credentials: true,
     });
 
+    //endregion
+
+
+    //region Route input validator
+    app.useGlobalPipes(new ValidationPipe({
+        exceptionFactory: (errors) => new BadRequestException(errors),
+        validationError: {target: false}, transform: true
+    }))
     //endregion
 
 
