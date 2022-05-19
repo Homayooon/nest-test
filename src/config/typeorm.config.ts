@@ -1,5 +1,8 @@
 import {TypeOrmModuleAsyncOptions, TypeOrmModuleOptions} from '@nestjs/typeorm';
 import {ConfigModule, ConfigService} from '@nestjs/config';
+import {User} from "../db/typeorm-models/user.entity";
+import {Role} from "../db/typeorm-models/role.entity"
+import {UserRole} from "../db/typeorm-models/user-role.entity"
 
 export const mySqlTypeOrmConfig: TypeOrmModuleAsyncOptions = {
     imports: [ConfigModule],
@@ -20,7 +23,9 @@ class MySqlTypeOrmConfig {
             database: configService.get<string>('mySqlTypeOrm.database'),
             synchronize: configService.get<boolean>('mySqlTypeOrm.synchronize'),
             entities: [
-
+                User,
+                Role,
+                UserRole
             ],
         }
     }
